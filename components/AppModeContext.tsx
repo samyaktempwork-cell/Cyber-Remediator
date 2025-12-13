@@ -1,16 +1,17 @@
 "use client";
 import { createContext, useContext } from "react";
-import { OperationMode } from "../types";
+import { AppMode } from "../types"; // Adjust path if types.ts is in root
 
 interface ModeContextType {
-  opMode: OperationMode;
-  setOpMode: (mode: OperationMode) => void;
+  opMode: AppMode;
+  setOpMode: (mode: AppMode) => void;
 }
 
-// Default state is SIMULATION to ensure safety during demos
+// Create the context
 export const ModeContext = createContext<ModeContextType>({
   opMode: "SIMULATION",
   setOpMode: () => {},
 });
 
+// Helper hook to use it easily
 export const useMode = () => useContext(ModeContext);

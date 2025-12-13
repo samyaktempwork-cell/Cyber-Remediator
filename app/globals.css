@@ -3,40 +3,109 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 240, 245, 250; /* Lighter Slate */
-  --background-end-rgb: 255, 255, 255;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --text-primary: #0f172a;
+  --border-color: #e2e8f0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 10, 15, 30; /* Deep Cyber Blue */
-    --background-end-rgb: 0, 0, 0;
-  }
+.dark {
+  --bg-primary: #020617; /* slate-950 */
+  --bg-secondary: #0f172a; /* slate-900 */
+  --text-primary: #f8fafc;
+  --border-color: #1e293b;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      rgb(var(--background-start-rgb)),
-      rgb(var(--background-end-rgb))
-    );
-  min-height: 100vh;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
-/* Custom Scrollbar for the Console feel */
-::-webkit-scrollbar {
-  width: 8px;
+/* Dashboard Card Styles */
+.dashboard-card {
+  @apply bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl flex flex-col overflow-hidden transition-all duration-300 shadow-md hover:shadow-lg dark:shadow-slate-900/50;
 }
-::-webkit-scrollbar-track {
-  background: transparent;
+
+.card-header {
+  @apply px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/50 flex justify-between items-center shrink-0 backdrop-blur-sm;
 }
-::-webkit-scrollbar-thumb {
-  background: #334155;
+
+/* Markdown Styling for Chat */
+.markdown-content p {
+  @apply mb-2 last:mb-0 leading-relaxed;
+}
+.markdown-content ul {
+  @apply list-disc ml-5 mb-3;
+}
+.markdown-content ol {
+  @apply list-decimal ml-5 mb-3;
+}
+.markdown-content li {
+  @apply mb-1;
+}
+.markdown-content strong {
+  @apply font-black text-slate-900 dark:text-white uppercase tracking-tighter;
+}
+.markdown-content h1, .markdown-content h2, .markdown-content h3 {
+  @apply font-black mt-4 mb-2 uppercase tracking-tight text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800 pb-1;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; 
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
   border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover {
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #475569;
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(1deg); }
+  66% { transform: translateY(4px) rotate(-1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+/* SVG Flow Animation */
+.dash-flow {
+  animation: dash 30s linear infinite;
+}
+@keyframes dash {
+  to {
+    stroke-dashoffset: -500;
+  }
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
