@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, createContext, useContext, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { GoogleGenAI } from "@google/genai";
 import { Shield, Sun, Moon } from "lucide-react";
 
@@ -21,12 +21,8 @@ import { IntelligenceCore } from "../components/IntelligenceCore";
 import { RemediationConsole } from "../components/RemediationConsole";
 import { ConfigPanel } from "../components/ConfigPanel";
 
-// --- Context ---
-// Note: Ideally, move this to a separate file (e.g., components/AppModeContext.tsx) to avoid circular imports.
-export const ModeContext = createContext<{
-  opMode: OperationMode;
-  setOpMode: (m: OperationMode) => void;
-}>({ opMode: "SIMULATION", setOpMode: () => {} });
+// FIXED: Import ModeContext instead of exporting it
+import { ModeContext } from "../components/ModeContext";
 
 // --- Main Application Component ---
 export default function App() {
@@ -188,8 +184,11 @@ export default function App() {
     setIsLoading(true);
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "mock-key" });
       const systemInstruction = `You are the ${DASHBOARD_NAME} Intelligence Agent. Mode: ${opMode}. Tier: ${tier}. Target: ${targetIdentity}. Analyze risk. Be technical, firm, and brief.`;
+      
+      if (!process.env.API_KEY) throw new Error("Missing API Key");
+
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: [...messages.slice(-5).map(m => ({ role: m.role === 'model' ? 'model' : 'user', parts: [{ text: m.text }] })), { role: "user", parts: [{ text: userText }] }],
