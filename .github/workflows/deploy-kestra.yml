@@ -1,0 +1,30 @@
+
+name: Deploy Kestra Flows
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Kestra
+        env:
+          KESTRA_URL: ${{ secrets.KESTRA_URL }}
+          KESTRA_USER: ${{ secrets.KESTRA_USER }}
+          KESTRA_PASSWORD: ${{ secrets.KESTRA_PASSWORD }}
+        run: |
+          for flow in backend/*.yaml; do
+            echo "Deploying $flow..."
+            curl -f -X POST "${KESTRA_URL}/api/v1/flows/import" \
+              -H "Content-Type: multipart/form-data" \
+              -u "${KESTRA_USER}:${KESTRA_PASSWORD}" \
+              -F "fileContent=@$flow"
+          done
