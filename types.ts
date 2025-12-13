@@ -1,4 +1,4 @@
-
+export type OperationMode = "SIMULATION" | "REAL";
 export type Tier = "FREE" | "PRO" | "PREMIUM";
 export type UserPlan = Tier;
 export type AppMode = "LANDING" | "SCANNING" | "DASHBOARD";
@@ -25,8 +25,10 @@ export interface ScanInput {
 }
 
 export interface SourceStatus {
-  source: string;
-  status: 'ACTIVE' | 'SKIPPED' | 'ERROR';
+  // Flexible to handle both "source" (from repo) and "name" (from mock)
+  source?: string;
+  name?: string; 
+  status: string; // Flexible to handle 'active' (lowercase) or 'ACTIVE' (uppercase)
   reason?: string;
 }
 
@@ -56,22 +58,24 @@ export interface GraphNode {
   id: string | number;
   label: string;
   subLabel?: string;
-  type: 'USER' | 'BREACH' | 'EXPOSURE' | 'RISK';
+  // Combined types to support both legacy Mocks (ROOT/THREAT) and new Repo (USER/BREACH)
+  type: 'USER' | 'BREACH' | 'EXPOSURE' | 'RISK' | 'ROOT' | 'THREAT'; 
   severity?: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
   source?: string;
   iconType?: string;
   date?: string;
-  x?: number;
+  x?: number; // Optional for auto-layout
   y?: number;
   vx?: number;
   vy?: number;
+  color?: string; // Added for compatibility with ThreatVisualizer
 }
 
 export interface GraphEdge {
   id: string;
   source: string | number;
   target: string | number;
-  type: 'RADIAL' | 'MESH';
+  type?: 'RADIAL' | 'MESH'; // Made optional for compatibility
   animated?: boolean;
 }
 

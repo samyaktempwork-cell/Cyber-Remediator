@@ -30,7 +30,8 @@ export const UpgradeModal = ({ onClose, onUpgrade }: { onClose: () => void, onUp
           </div>
           <div className="mt-8">
             <button onClick={onClose} className="text-sm text-slate-500 hover:text-slate-800 dark:hover:text-slate-300 underline">
-              No thanks, I'll fix it manually
+              {/* FIXED: Escaped Apostrophe */}
+              No thanks, I&apos;ll fix it manually
             </button>
           </div>
         </div>
