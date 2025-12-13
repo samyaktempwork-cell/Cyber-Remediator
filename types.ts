@@ -1,50 +1,82 @@
+
+export type Tier = "FREE" | "PRO" | "PREMIUM";
+export type UserPlan = Tier;
 export type AppMode = "LANDING" | "SCANNING" | "DASHBOARD";
-export type OperationMode = "SIMULATION" | "REAL";
-export type Tier = "FREE" | "PRO";
-export type ScanInputType = "EMAIL" | "MOBILE" | "SOCIAL";
-export type Theme = "light" | "dark";
+export type Theme = "dark" | "light";
+
+export type Message = {
+  role: "user" | "model" | "system";
+  text: string;
+};
+
+export type LogEntry = {
+  timestamp: string;
+  message: string;
+  type: "info" | "success" | "warning" | "error";
+};
+
+// --- Scanning Types ---
+
+export type ScanInputType = 'EMAIL' | 'MOBILE' | 'SOCIAL';
 
 export interface ScanInput {
   type: ScanInputType;
   value: string;
 }
 
+export interface SourceStatus {
+  source: string;
+  status: 'ACTIVE' | 'SKIPPED' | 'ERROR';
+  reason?: string;
+}
+
+export interface IntelligenceReport {
+  riskScore: number;
+  summary: string;
+  foundBreaches: number;
+  details: {
+    sources?: SourceStatus[];
+    [key: string]: any;
+  };
+  success: boolean;
+  graphData?: SecurityGraph;
+}
+
+// --- Remediation Types ---
+
+export interface RemediationOutcome {
+  type: 'TEXT' | 'SCRIPT' | 'EXECUTION';
+  content: string;
+  steps?: string[];
+}
+
+// --- Graph API Types ---
+
 export interface GraphNode {
-  id: string;
+  id: string | number;
   label: string;
-  type: "ROOT" | "THREAT" | "BREACH" | "USER";
-  color?: string;
+  subLabel?: string;
+  type: 'USER' | 'BREACH' | 'EXPOSURE' | 'RISK';
+  severity?: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
+  source?: string;
+  iconType?: string;
+  date?: string;
   x?: number;
   y?: number;
+  vx?: number;
+  vy?: number;
+}
+
+export interface GraphEdge {
+  id: string;
+  source: string | number;
+  target: string | number;
+  type: 'RADIAL' | 'MESH';
+  animated?: boolean;
 }
 
 export interface SecurityGraph {
   nodes: GraphNode[];
-  edges: any[];
+  edges: GraphEdge[];
   riskScore: number;
-}
-
-export interface IntelligenceReport {
-  success: boolean;
-  riskScore: number;
-  foundBreaches: number;
-  summary: string;
-  details?: { sources: SourceStatus[] };
-  graphData?: SecurityGraph;
-}
-
-export interface SourceStatus {
-  name: string;
-  status: "active" | "inactive" | "warning";
-}
-
-export interface Message {
-  role: "user" | "model" | "system";
-  text: string;
-}
-
-export interface LogEntry {
-  timestamp: string;
-  message: string;
-  type: "info" | "warning" | "error" | "success";
 }
