@@ -1,33 +1,28 @@
 {
-  "name": "cyber-remediator",
-  "version": "0.1.0",
+  "name": "ai-cyber-remediator",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "deploy:kestra": "find backend -name '*.yaml' -exec curl -v -X POST \"${KESTRA_URL}/api/v1/flows/import\" -H \"Content-Type: multipart/form-data\" -u \"${KESTRA_USER}:${KESTRA_PASSWORD}\" -F \"fileContent=@{}\" \\;"
   },
   "dependencies": {
-    "@google/genai": "^1.33.0",
-    "clsx": "^2.1.1",
-    "framer-motion": "^12.23.26",
-    "lucide-react": "^0.561.0",
-    "next": "14.2.0",
+    "@google/genai": "^1.30.0",
+    "lucide-react": "^0.555.0",
+    "next": "^14.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-markdown": "^10.1.0",
-    "tailwind-merge": "^3.4.0"
+    "react-markdown": "^9.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^20.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.22",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.0",
     "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.4.0"
   }
 }
