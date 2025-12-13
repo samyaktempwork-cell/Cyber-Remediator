@@ -6,14 +6,14 @@
 [![Vercel](https://img.shields.io/badge/Deployment-Vercel_Edge-black?style=for-the-badge&logo=vercel)](https://vercel.com/)
 [![Cline](https://img.shields.io/badge/Engineering-Cline_AI-emerald?style=for-the-badge)](https://cline.bot/)
 
-## 🚀 Vision & Context
+##  Vision & Context
 In the current cybersecurity landscape, "knowing you are breached" is no longer enough. The gap between **Identity Exposure** (the discovery) and **Remediation** (the fix) is where most damage occurs. 
 
 **Cyber Remediator** (Public Interface) and **Aegis Vizier Protocol** (Internal Orchestrator) provide an end-to-end solution. It doesn't just scan for leaks; it executes the recovery. By combining LLM-powered reasoning (**Gemini 2.5**) with enterprise-grade workflow orchestration (**Kestra**), we've built a "Final Mile" platform for digital identity protection.
 
 ---
 
-## 💎 3-Tier "Command & Control" Structure
+##  3-Tier "Command & Control" Structure
 The platform operates on a strict Role-Based Access Control (RBAC) model, designed to demonstrate enterprise scalability and monetization strategies.
 
 | Feature | **Tier 1: FREE (Public)** | **Tier 2: PRO (Analyst)** | **Tier 3: PREMIUM (Enterprise)** |
@@ -27,7 +27,7 @@ The platform operates on a strict Role-Based Access Control (RBAC) model, design
 
 ---
 
-## 🛠️ Technical Infrastructure Deep-Dive
+##  Technical Infrastructure Deep-Dive
 
 ### 1. Kestra Orchestration & Cloud Sync (`/backend/flow.yaml`)
 We utilize **Kestra** as our heavy-duty state machine. Unlike simple scripts, Kestra handles:
@@ -45,7 +45,7 @@ The bridge between the frontend and the heavy backend orchestration:
 
 ---
 
-## ⚖️ Compliance: The "Aegis Vizier" Consent Guard
+##  Compliance: The "Aegis Vizier" Consent Guard
 Security requires authority. The **Aegis Vizier Protocol** enforces a mandatory **Consent Guard**.
 - **Legal Authorization:** Before any "Write" operation (e.g., rotating keys, deleting data), the user must explicitly authorize the protocol.
 - **Visual Lock:** The remediation console remains in a "Grayscale Lock" state until compliance standards are met, preventing accidental or unauthorized triggers.
@@ -54,11 +54,11 @@ Security requires authority. The **Aegis Vizier Protocol** enforces a mandatory 
 
 ## 🔄 Operational Realms
 
-### 🕹️ Simulation Mode (Safe Harbor)
+###  Simulation Mode (Safe Harbor)
 - **Use Case:** Demonstrations, Training, and UI/UX testing.
 - **Logic:** Powered by `MockProvider.ts`, utilizing `constants.ts` to simulate complex threat landscapes without incurring API costs or infrastructure risk.
 
-### ⚡ Real Mode (Live Battle)
+###  Real Mode (Live Battle)
 - **Use Case:** Production-ready identity protection.
 - **Integrations:** 
   - **Hunter.io / EmailRep:** Live breach data.
@@ -93,7 +93,7 @@ Security requires authority. The **Aegis Vizier Protocol** enforces a mandatory 
 
 ---
 
-## 🚀 Setup & Experience
+##  Setup & Experience
 
 1. **Deploy Local Orchestration:**
    ```bash
