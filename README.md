@@ -185,7 +185,7 @@ Environment:
 ## 🌍 Deployment & Access
 
 -   **Vercel App:** https://cyber-remediator.vercel.app/
--   **YouTube Demo:** (add link)
+-   **YouTube Demo:** https://youtu.be/LalSk8ntY6A
 
 **Whitelisted Emails (Real Mode):**
 
