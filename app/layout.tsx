@@ -1,5 +1,7 @@
 import React from 'react';
 import './globals.css';
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata = {
   title: 'Cyber Remediator | Aegis Vizier Protocol',
@@ -13,7 +15,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        
+        {/* VERCEL OBSERVABILITY TOOLS */}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }

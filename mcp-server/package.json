@@ -1,0 +1,12 @@
+{
+  "name": "aegis-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP Server for Cyber Remediator Security Scans",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.6.0"
+  }
+}

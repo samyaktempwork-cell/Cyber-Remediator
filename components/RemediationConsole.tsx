@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Terminal, Lock, Workflow, Check, Zap, Server, Code } from "lucide-react";
+import { Terminal, Lock, Workflow, Check, Zap, Server, Code, CheckCircle2 } from "lucide-react";
 import { LogEntry, Tier } from "../types";
-import { ConsentGuard } from "./ConsentGuard";
+
+// NOTE: ConsentGuard import removed because we now handle consent internally
+// import { ConsentGuard } from "./ConsentGuard";
 
 interface RemediationConsoleProps {
   logs: LogEntry[];
@@ -13,6 +15,8 @@ interface RemediationConsoleProps {
 
 export const RemediationConsole = ({ logs, triggerRemediation, isRemediating, riskScore, tier }: RemediationConsoleProps) => {
   const logsEndRef = useRef<HTMLDivElement>(null);
+  
+  // Internal state for consent authorization
   const [isAuthorized, setIsAuthorized] = useState(false);
   
   useEffect(() => { 
@@ -20,10 +24,10 @@ export const RemediationConsole = ({ logs, triggerRemediation, isRemediating, ri
   }, [logs]);
 
   return (
-    <div className="dashboard-card h-full w-full flex flex-col font-mono overflow-hidden border-t-4 border-t-emerald-500">
+    <div className="dashboard-card h-full w-full flex flex-col font-mono overflow-hidden border-t-4 border-t-emerald-500 bg-white dark:bg-slate-900 rounded-2xl shadow-lg">
       
       {/* HEADER */}
-      <div className="card-header shrink-0 flex items-center justify-between gap-4">
+      <div className="card-header shrink-0 flex items-center justify-between gap-4 p-4 border-b border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-2 shrink-0">
                 <Terminal className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" /> 
                 <h3 className="text-sm font-bold text-emerald-700 dark:text-emerald-400 whitespace-nowrap">
@@ -72,29 +76,54 @@ export const RemediationConsole = ({ logs, triggerRemediation, isRemediating, ri
 
       {/* ACTION FOOTER */}
       <div className="p-4 pt-2 shrink-0">
-        <ConsentGuard onConsentChange={setIsAuthorized}>
-            <button 
-                onClick={triggerRemediation}
-                disabled={isRemediating || riskScore < 20 || !isAuthorized}
-                className={`w-full py-3 rounded-lg border font-bold flex items-center justify-center gap-2 transition-all shrink-0 shadow-lg text-xs sm:text-sm
-                    ${tier === 'FREE' 
-                    ? 'border-slate-300 dark:border-slate-800 text-slate-500 dark:text-slate-500 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 hover:text-emerald-600 dark:hover:text-emerald-500'
-                    : riskScore < 20
-                        ? 'border-emerald-500/30 text-emerald-600 dark:text-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 cursor-default'
+        
+        {/* INTERNAL CONSENT CHECKBOX (Replaces the external ConsentGuard wrapper) */}
+        {tier !== 'FREE' && riskScore >= 20 && (
+            <div className="mb-4 p-3 bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/30 rounded-lg">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                    <div className={`mt-0.5 w-4 h-4 border rounded transition-colors flex items-center justify-center shrink-0 ${
+                        isAuthorized ? 'bg-rose-600 border-rose-600' : 'bg-white dark:bg-slate-800 border-slate-400 hover:border-rose-500'
+                    }`}>
+                        {isAuthorized && <CheckCircle2 className="w-3 h-3 text-white" />}
+                        <input 
+                            type="checkbox" 
+                            className="hidden" 
+                            checked={isAuthorized} 
+                            onChange={(e) => setIsAuthorized(e.target.checked)} 
+                        />
+                    </div>
+                    <div className="flex-1">
+                        <p className="text-[10px] text-rose-800/80 dark:text-rose-200/80 leading-tight select-none">
+                            I authorize automated remediation protocols. I understand this may execute scripts on the target infrastructure.
+                        </p>
+                    </div>
+                </label>
+            </div>
+        )}
+
+        <button 
+            onClick={triggerRemediation}
+            disabled={isRemediating || riskScore < 20 || (!isAuthorized && tier !== 'FREE')}
+            className={`w-full py-3 rounded-lg border font-bold flex items-center justify-center gap-2 transition-all shrink-0 shadow-lg text-xs sm:text-sm
+                ${tier === 'FREE' 
+                ? 'border-slate-300 dark:border-slate-800 text-slate-500 dark:text-slate-500 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 hover:text-emerald-600 dark:hover:text-emerald-500'
+                : riskScore < 20
+                    ? 'border-emerald-500/30 text-emerald-600 dark:text-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 cursor-default'
+                    : (!isAuthorized)
+                        ? 'border-slate-600 bg-slate-800 text-slate-400 cursor-not-allowed opacity-70'
                         : 'border-rose-500 text-white bg-rose-600 hover:bg-rose-500 hover:shadow-rose-500/40'
-                    }`}
-            >
-                {tier === 'FREE' ? (
-                    <><Lock className="w-4 h-4" /> UPGRADE TO PRO TO REMEDIATE</>
-                ) : isRemediating ? (
-                    <><Workflow className="w-4 h-4 animate-spin" /> EXECUTING WORKFLOW...</>
-                ) : riskScore < 20 ? (
-                    <><Check className="w-4 h-4" /> SYSTEM SECURED</>
-                ) : (
-                    <><Zap className="w-4 h-4" /> EXECUTE REMEDIATION</>
-                )}
-            </button>
-        </ConsentGuard>
+                }`}
+        >
+            {tier === 'FREE' ? (
+                <><Lock className="w-4 h-4" /> UPGRADE TO PRO TO REMEDIATE</>
+            ) : isRemediating ? (
+                <><Workflow className="w-4 h-4 animate-spin" /> EXECUTING WORKFLOW...</>
+            ) : riskScore < 20 ? (
+                <><Check className="w-4 h-4" /> SYSTEM SECURED</>
+            ) : (
+                <><Zap className="w-4 h-4" /> EXECUTE REMEDIATION</>
+            )}
+        </button>
       </div>
     </div>
   );
