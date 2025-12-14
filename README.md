@@ -1,116 +1,230 @@
-# 🛡️ Cyber Remediator: Aegis Vizier Protocol
-> **The Final Mile of Identity Defense: From Detection to Autonomous Remediation**
+# 🛡️ Cyber Remediator
 
-[![Gemini 2.5](https://img.shields.io/badge/AI-Gemini_2.5_Flash-blueviolet?style=for-the-badge&logo=google-gemini)](https://ai.google.dev/)
-[![Kestra](https://img.shields.io/badge/Workflow-Kestra_v0.17-purple?style=for-the-badge&logo=kestra)](https://kestra.io/)
-[![Vercel](https://img.shields.io/badge/Deployment-Vercel_Edge-black?style=for-the-badge&logo=vercel)](https://vercel.com/)
-[![Cline](https://img.shields.io/badge/Engineering-Cline_AI-emerald?style=for-the-badge)](https://cline.bot/)
+## Aegis Vizier Protocol
 
-##  Vision & Context
-In the current cybersecurity landscape, "knowing you are breached" is no longer enough. The gap between **Identity Exposure** (the discovery) and **Remediation** (the fix) is where most damage occurs. 
+### **The Final Mile of Identity Defense**
 
-**Cyber Remediator** (Public Interface) and **Aegis Vizier Protocol** (Internal Orchestrator) provide an end-to-end solution. It doesn't just scan for leaks; it executes the recovery. By combining LLM-powered reasoning (**Gemini 2.5**) with enterprise-grade workflow orchestration (**Kestra**), we've built a "Final Mile" platform for digital identity protection.
+**From Detection → Reasoning → Autonomous Remediation**
 
----
+**Tech Stack:** Gemini 2.5 · Kestra · Vercel Edge · Cline MCP
 
-##  3-Tier "Command & Control" Structure
-The platform operates on a strict Role-Based Access Control (RBAC) model, designed to demonstrate enterprise scalability and monetization strategies.
+🔗 **GitHub Repository:**\
+https://github.com/samyaktempwork-cell/Cyber-Remediator
 
-| Feature | **Tier 1: FREE (Public)** | **Tier 2: PRO (Analyst)** | **Tier 3: PREMIUM (Enterprise)** |
-| :--- | :--- | :--- | :--- |
-| **Intelligence** | Static Exposure Checks | Deep OSINT (Email/Mobile) | Real-time Global Attack Graph |
-| **Mapping** | Fixed Risk Summary | Interactive SVG Radial Maps | Multi-Vector Force Graphs |
-| **Remediation** | Manual Checklists | **AI-Generated CLI Scripts** | **Autonomous Kestra Execution** |
-| **Response Engine** | Gemini 2.5 Flash | Gemini 2.5 Pro (via Cline) | Fine-tuned Oumi Agents |
-| **Priority** | Standard (Rate Limited) | High Priority (Low Latency) | Ultra-Low Latency Edge-Only |
-| **Compliance** | Basic Disclaimer | Article 17 Consent Guard | Full Audit Logging & Cloud Sync |
+------------------------------------------------------------------------
 
----
+## 🧭 Vision & Context
 
-##  Technical Infrastructure Deep-Dive
+In today's cybersecurity landscape, **knowing that you are breached is
+no longer enough**.
 
-### 1. Kestra Orchestration & Cloud Sync (`/backend/flow.yaml`)
-We utilize **Kestra** as our heavy-duty state machine. Unlike simple scripts, Kestra handles:
-- **Task Switching:** Dynamically branching workflows based on real-time risk scores.
-- **Autonomous Remediation:** Rotating AWS IAM keys, triggering GDPR "Right to Erasure" requests, and updating blocklists.
-- **CI/CD Integration:** A specialized `deploy_to_cloud` task that uses the Kestra API to synchronize local remediation blueprints with enterprise cloud clusters.
+Most real-world damage occurs in the dangerous gap between:
 
-### 2. Cline AI: The Autonomous Script Engineer
-Integrated into the **PRO** tier, **Cline AI** acts as a virtual site reliability engineer. When a breach is identified, Cline analyzes the specific threat vector and generates a tailored remediation script (Python, Bash, or Terraform) that the user can execute immediately.
+-   **Identity Exposure (Detection)**\
+-   **Remediation (Action)**
 
-### 3. Vercel Edge & NDJSON Streaming (`/app/api/remediate`)
-The bridge between the frontend and the heavy backend orchestration:
-- **Live Logging:** Using the Vercel Edge Runtime, we stream logs from Kestra execution nodes to the UI terminal in **NDJSON** format, providing zero-latency feedback during high-stakes security operations.
-- **Serverless Crons:** Automated daily scans are scheduled via `vercel.json` to ensure continuous monitoring.
+This gap---manual analysis, delayed response, and unclear ownership---is
+where attackers win.
 
----
+------------------------------------------------------------------------
 
-##  Compliance: The "Aegis Vizier" Consent Guard
-Security requires authority. The **Aegis Vizier Protocol** enforces a mandatory **Consent Guard**.
-- **Legal Authorization:** Before any "Write" operation (e.g., rotating keys, deleting data), the user must explicitly authorize the protocol.
-- **Visual Lock:** The remediation console remains in a "Grayscale Lock" state until compliance standards are met, preventing accidental or unauthorized triggers.
+## 🧠 What We Built
 
----
+**Cyber Remediator** (Public Interface)\
+**Aegis Vizier Protocol** (Internal Orchestrator)
+
+Together, they form an **end-to-end identity defense platform** that
+does not stop at discovery---it **executes recovery**.
+
+By combining:
+
+-   LLM-powered security reasoning (**Gemini 2.5**)\
+-   Enterprise-grade workflow orchestration (**Kestra**)\
+-   Ultra-low-latency execution (**Vercel Edge**)\
+-   Autonomous script engineering (**Cline MCP**)
+
+Cyber Remediator delivers the **Final Mile of digital identity
+protection**.
+
+> **Detection is not Defense. Execution is.**
+
+------------------------------------------------------------------------
+
+## 🧩 3-Tier Command & Control Architecture (RBAC)
+
+    -----------------------------------------------------------------------
+    Capability        🟢 FREE           🟡 PRO            🔴 ENTERPRISE
+    ----------------- ----------------- ----------------- -----------------
+    Intelligence      Static exposure   Deep OSINT        Real-time global
+                        checks            (Email/Mobile)    attack graph
+
+    Threat Mapping    Fixed summary     Interactive SVG   Multi-vector
+                                        maps              force graphs
+
+    Remediation       Manual checklists AI-generated CLI  Autonomous Kestra
+                                        scripts           execution
+
+    Response Engine   Gemini 2.5 Flash  Gemini 2.5 Pro    Fine-tuned agents
+                                        (Cline)           
+
+    Priority          Rate-limited      High priority     Edge-only
+                                                            ultra-low latency
+
+    Compliance        Disclaimer        Article-17 guard  Full audit
+                                                            logging
+    -----------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## 🏗️ Technical Infrastructure Deep Dive
+
+### 1️⃣ Kestra Orchestration & Cloud Sync
+
+**Location:** `backend/flow.yaml`
+
+Kestra functions as the **core state machine** of the Aegis Vizier
+Protocol.
+
+**Key Capabilities:** - Dynamic task switching based on risk, tier, and
+mode - Autonomous remediation (IAM rotation, GDPR erasure, blocklists) -
+CI/CD-style workflow synchronization with cloud clusters
+
+Kestra ensures remediation is **repeatable, explainable, and
+auditable**.
+
+------------------------------------------------------------------------
+
+### 2️⃣ Cline MCP --- Autonomous Script Engineer (PRO Tier)
+
+Cline acts as a **virtual security/SRE engineer**.
+
+**Workflow:** 1. Threat vector analysis\
+2. Context injection via MCP\
+3. Tailored remediation script generation
+
+**Outputs:** Python · Bash · Terraform
+
+Security controls enforced via `.clinerules` (OWASP Top 10).
+
+> Humans review. AI accelerates. Kestra executes.
+
+------------------------------------------------------------------------
+
+### 3️⃣ Vercel Edge Runtime & NDJSON Streaming
+
+**Location:** `app/api/remediate`
+
+-   Edge Functions for near-zero latency remediation
+-   Live NDJSON streaming of Kestra execution logs
+-   Serverless crons for continuous monitoring
+-   Immutable audit logs (Vercel KV)
+-   Compliance reports (Vercel Blob)
+
+Vercel turns Cyber Remediator into a **globally distributed security
+control plane**.
+
+------------------------------------------------------------------------
+
+## 🔐 Compliance by Design --- Aegis Vizier Consent Guard
+
+Before any write operation: - Explicit legal authorization required -
+Visual grayscale lock enforced - Hard execution gates prevent misuse
+
+------------------------------------------------------------------------
 
 ## 🔄 Operational Realms
 
-###  Simulation Mode (Safe Harbor)
-- **Use Case:** Demonstrations, Training, and UI/UX testing.
-- **Logic:** Powered by `MockProvider.ts`, utilizing `constants.ts` to simulate complex threat landscapes without incurring API costs or infrastructure risk.
+### 🟡 Simulation Mode --- Safe Harbor
 
-###  Real Mode (Live Battle)
-- **Use Case:** Production-ready identity protection.
-- **Integrations:** 
-  - **Hunter.io / EmailRep:** Live breach data.
-  - **NumVerify:** Mobile line intelligence.
-  - **Kestra API:** Actual execution of Python/AWS/Mail tasks.
-  - **Gemini Live:** Real-time conversational intelligence for threat analysis.
+-   Training, demos, hackathons
+-   Powered by MockProvider + constants
+-   Zero cost, zero risk, full realism
 
----
+### 🔴 Real Mode --- Live Battle
 
-## 📂 Folder Directory Structure
-```text
-.
-├── app/api/remediate/   # Vercel Edge Route (The NDJSON Streaming Bridge)
-├── backend/             # Infrastructure Layer
-│   ├── flow.yaml        # Kestra Workflow Blueprint (with Cloud Sync task)
-│   └── docker-compose   # Containerized Stack (Postgres/Kestra)
-├── components/          # Presentation Layer
-│   ├── ThreatVisualizer # The "War Room" HUD (SVG Attack Surface Graph)
-│   ├── IntelligenceCore # Gemini 2.5 AI Agent Interface
-│   ├── RemediationConsole # Real-time Kestra Worker Terminal
-│   ├── ConsentGuard     # Compliance & Legal Authorization Logic
-│   └── ConfigPanel      # RBAC & Infrastructure Blueprint Viewer
-├── services/            # Logic & Strategy Layer
-│   ├── ServiceFactory   # Strategy Pattern for Mock/Real Mode Injection
-│   ├── providers/       # MockProvider (Fast) vs RealProvider (Live API)
-│   ├── mappers/         # RealDataMapper (Normalization of OSINT JSON)
-│   └── remediation/     # The Orchestrator for 3-tier logic execution
-├── config.ts            # Dynamic Service Registry & API Flag Logic
-├── constants.ts         # Branding, Mock Data, and Technical Blueprints
-└── README.md            # You are here.
+-   Production identity defense
+-   Live OSINT (Hunter, EmailRep, NumVerify)
+-   Real Kestra execution
+-   Gemini live intelligence
+
+Access restricted via **whitelisting, consent guard, and mode guard**.
+
+------------------------------------------------------------------------
+
+## 📂 Project Structure
+
+    .
+    ├── app/api/remediate/
+    ├── backend/
+    │   ├── flow.yaml
+    │   └── docker-compose
+    ├── components/
+    ├── services/
+    ├── config.ts
+    ├── constants.ts
+    └── README.md
+
+------------------------------------------------------------------------
+
+## ⚙️ Setup & Experience
+
+``` bash
+cd backend
+docker-compose up -d
 ```
 
----
+Kestra UI: http://localhost:8080
 
-##  Setup & Experience
+Environment:
 
-1. **Deploy Local Orchestration:**
-   ```bash
-   cd backend && docker-compose up -d
-   # Access Kestra UI at http://localhost:8080
-   ```
+    GEMINI_API_KEY=your_key
+    VITE_ENABLE_HUNTER=true
 
-2. **Configure Environment:**
-   Set `API_KEY` (Gemini) in your environment. Use `VITE_ENABLE_HUNTER=true` for live OSINT lookups.
+------------------------------------------------------------------------
 
-3. **Initiate Protocol:**
-   - Scan an identity on the Landing Page.
-   - Enter the **Aegis Vizier** Command Center.
-   - Authorize via the **Consent Guard**.
-   - Watch the **Kestra** logs stream in real-time as the identity is secured.
+## 🌍 Deployment & Access
 
----
+-   **Vercel App:** https://cyber-remediator.vercel.app/
+-   **YouTube Demo:** (add link)
 
-**Architected with Precision by Samyakkumar Jain.**  
-*Cyber Remediator: Because Detection is not Defense.*
+**Whitelisted Emails (Real Mode):**
+
+    security-admin@example.com
+    soc-lead@example.com
+    demo-override@example.com
+
+------------------------------------------------------------------------
+
+## 🏆 Awards & Recognition Potential
+
+Designed for: - Best Use of AI - Best Security / Privacy Project - Best
+Cloud-Native Architecture - Most Innovative Automation - Best Real-World
+Impact
+
+The Dual-Mode engine enables **safe judge demos with real execution
+proof**.
+
+------------------------------------------------------------------------
+
+## 🧠 Why Cyber Remediator Wins
+
+✔ Closes detection → remediation gap\
+✔ AI with guardrails\
+✔ Enterprise-grade orchestration\
+✔ Real-time visibility\
+✔ Compliance-first design
+
+------------------------------------------------------------------------
+
+## 👤 Architect & Author
+
+**Samyakkumar Jain**\
+Security · Cloud · Automation Engineer
+
+🔗 GitHub: https://github.com/samyaktempwork-cell
+
+------------------------------------------------------------------------
+
+### 🛡️ Cyber Remediator
+
+**Because Detection is not Defense.**
